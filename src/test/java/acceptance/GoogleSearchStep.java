@@ -2,11 +2,13 @@ package acceptance;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import setup.SeleniumDriver;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -17,37 +19,53 @@ public class GoogleSearchStep {
 	private static WebDriver driver;
 	private static WebDriverWait wait;
 	
-	@Before
-	public void setup(){
-		if(driver == null)
-		   driver = new FirefoxDriver();
-		   driver.manage().window().maximize();		
-		   wait = new WebDriverWait(driver, 20);
+	@Before("@start")
+	public void init(){
+		driver = SeleniumDriver.getDriver();
+		wait = new WebDriverWait(driver, 15);
+		driver.manage().window().setPosition(new Point(200, 100));
 	}
 	
-	@Given("^I access the google page$")
-	public void iAccessTheGooglePage() throws Exception {
-		driver.navigate().to("http://www.google.com");
+	@Given("^the user accesses the search page$")
+	public void theUserAccessesTheSearchPage() throws Exception {
+		driver.get("http://www.google.com");
 	}
 
-	@When("^I click enter$")
-	public void iClickEnter() throws Exception {
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("btnG"))); 
+	@When("^the user clicks enter$")
+	public void theUserClicksEnter() throws Exception {
+		WebElement btn = driver.findElement(By.name("btnG"));
+		wait.until(ExpectedConditions.visibilityOf(btn));
 	    driver.findElement(By.name("btnG")).click();
 	}
 
-	@Then("^I should see a text on screen$")
-	public void iShouldSeeATextOnScreen() throws Exception {
-		Assert.assertTrue(driver.getPageSource().contains("Cheese"));
+	@Then("^the system should display a text on screen$")
+	public void theSystemShouldDisplayATextOnScreen() throws Exception {
+		String textExpected = driver.findElement(By.cssSelector(".r>a")).getText();
+		Assert.assertTrue(textExpected.contains("Cheese"));
 	}
 
-	@When("^I search for word$")
-	public void iSearchForWord() throws Exception {
+	@When("^the user enter cheese into search field$")
+	public void theUserEnterCheeseIntoSearchField() throws Exception {
 		driver.findElement(By.name("q")).sendKeys("Cheese");
 	}
 	
-	@After
-	public void tearDown(){
+	@When("^the user click on advance search icon$")
+	public void theUserclickOnAdvanceSearchIcon() throws Throwable {
+		 driver.findElement(By.cssSelector("#abar_button_opt")).click();
+	}
+
+	@When("^the user click on advance search link$")
+	public void theUserclickOnAdvanceSearchLink() throws Throwable {
+		driver.findElement(By.cssSelector("#ab_as>div")).click();
+	}
+
+	@When("^the user click on advance search button$")
+	public void theUserclickOnAdvanceSearchButton() throws Throwable {
+		driver.findElement(By.cssSelector(".jfk-button.jfk-button-action._JQ")).click();
+	}
+	
+	@After("@finish")
+	public void finish(){
 		driver.quit();
 	}
 }

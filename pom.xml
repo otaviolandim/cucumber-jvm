@@ -1,7 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   
   <modelVersion>4.0.0</modelVersion>
-  <groupId>br.com.oitavo.cucumber</groupId>
+  <groupId>com.oitavo.cucumber.selenium</groupId>
   <artifactId>cucumber-jvm</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
@@ -9,8 +11,6 @@
   		<selenium.version>2.45.0</selenium.version>
   		<junit.version>4.12</junit.version>
   		<cucumber.version>1.2.2</cucumber.version>
-  		<cucumber.reporting>0.0.24</cucumber.reporting>
-  		<guava.version>16.0</guava.version>
   </properties>
   
   <dependencies>
@@ -51,20 +51,5 @@
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
-        
-        <!-- Cucumber Reporting Dependency -->
-        <dependency>
-    		<groupId>net.masterthought</groupId>
-    		<artifactId>cucumber-reporting</artifactId>
-    		<version>${cucumber.reporting}</version>
-	    </dependency>
-	    
-	    <!-- Guava Dependency -->
-	    <dependency>
- 			<groupId>com.google.guava</groupId> 
- 			<artifactId>guava</artifactId> 
- 			<version>${guava.version}</version> 
- 			<scope>test</scope> 
-		</dependency>
   </dependencies>
 </project>

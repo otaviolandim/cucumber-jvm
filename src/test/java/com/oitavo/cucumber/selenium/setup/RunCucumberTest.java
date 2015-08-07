@@ -1,10 +1,13 @@
 package com.oitavo.cucumber.selenium.setup;
 
 import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import cucumber.api.CucumberOptions;
+import cucumber.api.java.Before;
 import cucumber.api.junit.Cucumber;
 /**
  * @author olandim
@@ -15,10 +18,9 @@ import cucumber.api.junit.Cucumber;
 				 dryRun = false,
 				 strict = true,
 				 glue = {"com.oitavo.cucumber.selenium.steps"},
-				 monochrome = true,
-				 tags = {"@done , @wip"})
+				 tags = {"@done"})
 public class RunCucumberTest {
-	
+
 	@AfterClass
 	public static void finish(){
 		WebDriver driver = SeleniumDriver.getDriver();
